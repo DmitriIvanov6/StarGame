@@ -23,9 +23,7 @@ public class BaseScreen implements Screen, InputProcessor {
 
     Vector2 touch;
 
-
     protected SpriteBatch batch;
-
 
     @Override
     public void show() {
@@ -38,7 +36,6 @@ public class BaseScreen implements Screen, InputProcessor {
         worldToGL = new Matrix4();
         screenToWorld = new Matrix3();
         Gdx.input.setInputProcessor(this);
-
     }
 
     @Override
@@ -54,7 +51,7 @@ public class BaseScreen implements Screen, InputProcessor {
         screenBounds.setBottom(0);
         float aspect = width / (float) height;
         worldBounds.setHeight(1f);
-        worldBounds.setWidth(1f * aspect);
+        worldBounds.setWidth(aspect);
         MatrixUtils.calcTransitionMatrix(worldToGL, worldBounds, glBounds);
         batch.setProjectionMatrix(worldToGL);
         resize(worldBounds);
@@ -118,7 +115,6 @@ public class BaseScreen implements Screen, InputProcessor {
         return false;
     }
 
-
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
         System.out.println("touchUp screenX = " + screenX + " screenY = " + screenY);
@@ -131,7 +127,6 @@ public class BaseScreen implements Screen, InputProcessor {
         System.out.println("touchUp touchX = " + touch.x + " touchY = " + touch.y);
         return false;
     }
-
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {

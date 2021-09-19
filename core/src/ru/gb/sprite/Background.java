@@ -12,7 +12,7 @@ public class Background extends Sprite {
         super(new TextureRegion(texture));
     }
 
-    public void resize(Rect worldBounds){
+    public void resize(Rect worldBounds) {
         this.pos.set(worldBounds.pos);
         setHeightProportion(worldBounds.getHeight());
     }

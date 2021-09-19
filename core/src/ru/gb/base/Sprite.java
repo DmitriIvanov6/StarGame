@@ -18,17 +18,21 @@ public class Sprite extends Rect {
         regions[0] = region;
     }
 
-    public void setHeightProportion(float height){
+    public Sprite(TextureRegion region, int rows, int cols, int frames) {
+        this.regions = Regions.split(region, rows, cols, frames);
+    }
+
+    public void setHeightProportion(float height) {
         setHeight(height);
         float aspect = regions[frame].getRegionWidth() / (float) regions[frame].getRegionHeight();
-        setWidth(height*aspect);
+        setWidth(height * aspect);
 
     }
 
-    public void draw(SpriteBatch batch){
+    public void draw(SpriteBatch batch) {
         batch.draw(
                 regions[frame],
-                getLeft(),getBottom(),
+                getLeft(), getBottom(),
                 halfWidth, halfHeight,
                 getWidth(), getHeight(),
                 scale, scale,
@@ -36,19 +40,20 @@ public class Sprite extends Rect {
         );
     }
 
-    public void resize(Rect worldBounds){
+    public void resize(Rect worldBounds) {
 
     }
 
-    public void update(float delta){
+    public void update(float delta) {
 
     }
 
-    public boolean touchDown(Vector2 touch, int pointer, int button){
+    public boolean touchDown(Vector2 touch, int pointer, int button) {
         return false;
 
     }
-    public boolean touchUp(Vector2 touch, int pointer, int button){
+
+    public boolean touchUp(Vector2 touch, int pointer, int button) {
         return false;
     }
 
