@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import ru.gb.math.Rect;
+import ru.gb.utils.Regions;
 
 public class Sprite extends Rect {
 
@@ -82,7 +83,7 @@ public class Sprite extends Rect {
     }
 
     public void flushDestroy(){
-        destroyed= false;
+        destroyed = false;
     }
 
     public boolean isDestroyed() {

@@ -1,4 +1,4 @@
-package ru.gb.base;
+package ru.gb.utils;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 

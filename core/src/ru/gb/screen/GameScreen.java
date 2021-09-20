@@ -10,9 +10,11 @@ import com.badlogic.gdx.math.Vector2;
 import ru.gb.base.BaseScreen;
 import ru.gb.math.Rect;
 import ru.gb.pool.BulletPool;
+import ru.gb.pool.EnemyPool;
 import ru.gb.sprite.Background;
 import ru.gb.sprite.MainShip;
 import ru.gb.sprite.Star;
+import ru.gb.utils.EnemyEmitter;
 
 public class GameScreen extends BaseScreen {
 
@@ -26,9 +28,13 @@ public class GameScreen extends BaseScreen {
     private MainShip mainShip;
 
     private BulletPool bulletPool;
+    private EnemyPool enemyPool;
+
+    private EnemyEmitter enemyEmitter;
 
     private Music music;
     private Sound pewMain;
+    private Sound pewSmallShip;
 
 
     @Override
@@ -42,6 +48,9 @@ public class GameScreen extends BaseScreen {
             stars[i] = new Star(atlas);
         }
         bulletPool = new BulletPool();
+        enemyPool = new EnemyPool(bulletPool, worldBounds);
+        pewSmallShip = Gdx.audio.newSound(Gdx.files.internal("sounds/pewSmall.wav"));
+        enemyEmitter = new EnemyEmitter(atlas, enemyPool, worldBounds, pewSmallShip);
         pewMain = Gdx.audio.newSound(Gdx.files.internal("sounds/pewMain.wav"));
         mainShip = new MainShip(atlas, bulletPool, pewMain);
         music = Gdx.audio.newMusic(Gdx.files.internal("sounds/imperial.mp3"));
@@ -77,6 +86,8 @@ public class GameScreen extends BaseScreen {
         bulletPool.dispose();
         music.dispose();
         pewMain.dispose();
+        enemyPool.dispose();
+        pewSmallShip.dispose();
     }
 
     @Override
@@ -97,6 +108,8 @@ public class GameScreen extends BaseScreen {
         }
         mainShip.update(delta);
         bulletPool.updateActiveSprites(delta);
+        enemyPool.updateActiveSprites(delta);
+        enemyEmitter.generate(delta);
     }
 
     public void draw() {
@@ -107,6 +120,7 @@ public class GameScreen extends BaseScreen {
         }
         mainShip.draw(batch);
         bulletPool.drawActiveSprites(batch);
+        enemyPool.drawActiveSprites(batch);
         batch.end();
     }
 
@@ -124,5 +138,6 @@ public class GameScreen extends BaseScreen {
 
     private void freeAllDestroyed() {
         bulletPool.freeAllDestroyedActiveSprites();
+        enemyPool.freeAllDestroyedActiveSprites();
     }
 }
