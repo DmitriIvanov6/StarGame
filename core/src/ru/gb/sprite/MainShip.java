@@ -66,9 +66,24 @@ public class MainShip extends Sprite {
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer, int button) {
-        stop();
+        if (pointer == leftPointer) {
+            leftPointer = INV_POINTER;
+            if (rightPointer != INV_POINTER) {
+                moveRight();
+            } else {
+                stop();
+            }
+        } else if (pointer == rightPointer) {
+            rightPointer = INV_POINTER;
+            if (leftPointer != INV_POINTER) {
+                moveLeft();
+            } else {
+                stop();
+            }
+        }
         return false;
     }
+
 
     public boolean keyDown(int keycode) {
         switch (keycode) {
