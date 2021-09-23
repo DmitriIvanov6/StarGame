@@ -6,7 +6,9 @@ import com.badlogic.gdx.math.Vector2;
 
 import ru.gb.math.Rect;
 import ru.gb.pool.BulletPool;
+import ru.gb.pool.ExplosionPool;
 import ru.gb.sprite.Bullet;
+import ru.gb.sprite.Explosion;
 
 public class Ship extends Sprite {
 
@@ -15,13 +17,14 @@ public class Ship extends Sprite {
     protected final Vector2 v0 = new Vector2();
     protected final Vector2 v = new Vector2();
 
-    protected  BulletPool bulletPool;
-    protected  TextureRegion bulletRegion;
-    protected  Vector2 bulletV;
-    protected  Vector2 bulletPos;
-    protected  float bulletHeight;
-    protected  int bulletDamage;
-    protected  Sound bulletSound;
+    protected BulletPool bulletPool;
+    protected ExplosionPool explosionPool;
+    protected TextureRegion bulletRegion;
+    protected Vector2 bulletV;
+    protected Vector2 bulletPos;
+    protected float bulletHeight;
+    protected int bulletDamage;
+    protected Sound bulletSound;
 
     protected float reloadTimer;
     protected float reloadInterval;
@@ -55,9 +58,30 @@ public class Ship extends Sprite {
         }
     }
 
+    @Override
+    public void destroy() {
+        super.destroy();
+        boom();
+    }
+
+    public void damage(int damage) {
+        hp -= damage;
+        if (hp <= 0) {
+            hp = 0;
+            destroy();
+        }
+        frame = 1;
+        damageAnimateTimer = 0f;
+    }
+
     private void shoot() {
         Bullet bullet = bulletPool.obtain();
         bullet.set(this, bulletRegion, bulletPos, bulletV, bulletHeight, worldBounds, bulletDamage);
         bulletSound.play();
+    }
+
+    private void boom() {
+        Explosion explosion = explosionPool.obtain();
+        explosion.set(pos, getHeight());
     }
 }

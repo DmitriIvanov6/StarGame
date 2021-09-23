@@ -7,13 +7,15 @@ import com.badlogic.gdx.math.Vector2;
 import ru.gb.base.Ship;
 import ru.gb.math.Rect;
 import ru.gb.pool.BulletPool;
+import ru.gb.pool.ExplosionPool;
 
 public class EnemyShip extends Ship {
 
     private static final Vector2 startV = new Vector2(0, -0.3f);
 
-    public EnemyShip(BulletPool bulletPool, Rect worldBounds) {
+    public EnemyShip(BulletPool bulletPool, ExplosionPool explosionPool, Rect worldBounds) {
         this.bulletPool = bulletPool;
+        this.explosionPool = explosionPool;
         this.worldBounds = worldBounds;
         this.bulletV = new Vector2();
         this.bulletPos = new Vector2();
@@ -28,6 +30,7 @@ public class EnemyShip extends Ship {
             reloadTimer = 0.8f * reloadInterval;
         }
         this.bulletPos.set(pos.x, pos.y - getHalfHeight());
+
     }
 
     public void set(
