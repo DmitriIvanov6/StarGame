@@ -3,12 +3,12 @@ package ru.gb.sprite;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 
 import ru.gb.base.Ship;
 import ru.gb.math.Rect;
 import ru.gb.pool.BulletPool;
+import ru.gb.pool.ExplosionPool;
 
 public class MainShip extends Ship {
 
@@ -24,9 +24,10 @@ public class MainShip extends Ship {
     private int leftPointer = INV_POINTER;
     private int rightPointer = INV_POINTER;
 
-    public MainShip(TextureAtlas atlas, BulletPool bulletPool, Sound bulletSound) {
+    public MainShip(TextureAtlas atlas, BulletPool bulletPool, ExplosionPool explosionPool, Sound bulletSound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         this.bulletPool = bulletPool;
+        this.explosionPool = explosionPool;
         bulletRegion = atlas.findRegion("bulletMainShip");
         bulletV = new Vector2(0, 0.5f);
         bulletPos = new Vector2();
@@ -36,6 +37,17 @@ public class MainShip extends Ship {
         reloadInterval = RELOAD_INTERVAL;
         v0.set(0.5f, 0);
         hp = HP;
+    }
+
+    public void startNewGame() {
+        flushDestroy();
+        hp = HP;
+        this.pos.x = worldBounds.pos.x;
+        stop();
+        pressedLeft = false;
+        pressedRight = false;
+        leftPointer = INV_POINTER;
+        rightPointer = INV_POINTER;
     }
 
     @Override
@@ -79,7 +91,21 @@ public class MainShip extends Ship {
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer, int button) {
-        stop();
+        if (pointer == leftPointer) {
+            leftPointer = INV_POINTER;
+            if (rightPointer != INV_POINTER) {
+                moveRight();
+            } else {
+                stop();
+            }
+        } else if (pointer == rightPointer) {
+            rightPointer = INV_POINTER;
+            if (leftPointer != INV_POINTER) {
+                moveLeft();
+            } else {
+                stop();
+            }
+        }
         return false;
     }
 
@@ -136,4 +162,12 @@ public class MainShip extends Ship {
         v.setZero();
     }
 
+    public boolean inCollision(Rect rect) {
+        return !(
+                rect.getRight() < getLeft()
+                        || rect.getLeft() > getRight()
+                        || rect.getBottom() > pos.y
+                        || rect.getTop() < getBottom()
+        );
+    }
 }

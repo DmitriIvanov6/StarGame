@@ -1,7 +1,6 @@
 package ru.gb.base;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.utils.SpriteDrawable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,12 +55,17 @@ public abstract class SpritePool<T extends Sprite> {
         }
     }
 
-    public void dispose(){
+    public void dispose() {
         activeObjects.clear();
         freeObjects.clear();
     }
 
     public List<T> getActiveObjects() {
         return activeObjects;
+    }
+
+    public void freeAllActiveObjects() {
+        freeObjects.addAll(activeObjects);
+        activeObjects.clear();
     }
 }

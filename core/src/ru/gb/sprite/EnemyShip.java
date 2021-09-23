@@ -42,7 +42,7 @@ public class EnemyShip extends Ship {
             float height,
             int hp
 
-    ){
+    ) {
         this.regions = regions;
         this.v0.set(v0);
         this.bulletRegion = bulletRegion;
@@ -55,12 +55,20 @@ public class EnemyShip extends Ship {
         this.hp = hp;
         v.set(startV);
 
-
     }
 
     @Override
     public void destroy() {
         super.destroy();
         reloadTimer = 0f;
+    }
+
+    public boolean inCollision(Rect rect) {
+        return !(
+                rect.getRight() < getLeft()
+                        || rect.getLeft() > getRight()
+                        || rect.getBottom() > getTop()
+                        || rect.getTop() < pos.y
+        );
     }
 }

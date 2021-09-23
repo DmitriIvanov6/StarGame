@@ -8,7 +8,9 @@ import ru.gb.math.Rect;
 import ru.gb.pool.BulletPool;
 import ru.gb.sprite.Bullet;
 
-public class Ship extends Sprite{
+public class Ship extends Sprite {
+
+    private static final float DAMAGE_ANIMATE_INTERVAL = 0.1f;
 
     protected final Vector2 v0 = new Vector2();
     protected final Vector2 v = new Vector2();
@@ -28,6 +30,8 @@ public class Ship extends Sprite{
 
     protected int hp;
 
+    private float damageAnimateTimer = DAMAGE_ANIMATE_INTERVAL;
+
     public Ship() {
 
     }
@@ -43,6 +47,11 @@ public class Ship extends Sprite{
         if (reloadTimer >= reloadInterval) {
             reloadTimer = 0f;
             shoot();
+        }
+
+        damageAnimateTimer += delta;
+        if (damageAnimateTimer >= DAMAGE_ANIMATE_INTERVAL) {
+            frame = 0;
         }
     }
 
