@@ -7,6 +7,9 @@ import ru.gb.Stargame;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
+		config.height = 800;
+		config.width = 500;
+		config.resizable = false;
 		new LwjglApplication(new Stargame(), config);
 	}
 }
