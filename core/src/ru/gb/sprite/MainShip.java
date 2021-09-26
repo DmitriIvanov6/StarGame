@@ -8,14 +8,13 @@ import com.badlogic.gdx.math.Vector2;
 import ru.gb.base.Ship;
 import ru.gb.math.Rect;
 import ru.gb.pool.BulletPool;
-import ru.gb.pool.ExplosionPool;
 
 public class MainShip extends Ship {
 
-    private static final float HEIGHT = 0.15f;
+    private static final float HEIGHT = 0.08f;
     private static final float BOTTOM_MARGIN = 0.05f;
     private static final int INV_POINTER = -1;
-    private static final int HP = 100;
+    private static final int HP = 25;
     private static final float RELOAD_INTERVAL = 0.3f;
 
     private boolean pressedLeft;
@@ -24,10 +23,10 @@ public class MainShip extends Ship {
     private int leftPointer = INV_POINTER;
     private int rightPointer = INV_POINTER;
 
-    public MainShip(TextureAtlas atlas, BulletPool bulletPool, ExplosionPool explosionPool, Sound bulletSound) {
+    public MainShip(TextureAtlas atlas, BulletPool bulletPool, Explosion mSE, Sound bulletSound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         this.bulletPool = bulletPool;
-        this.explosionPool = explosionPool;
+        this.mainShipBoom = mSE;
         bulletRegion = atlas.findRegion("bulletMainShip");
         bulletV = new Vector2(0, 0.5f);
         bulletPos = new Vector2();
@@ -69,6 +68,16 @@ public class MainShip extends Ship {
             setLeft(worldBounds.getLeft());
             stop();
         }
+    }
+
+    public void mainShipExplosion() {
+        mainShipBoom.set(pos, getHeight());
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        mainShipExplosion();
     }
 
     @Override
@@ -136,7 +145,6 @@ public class MainShip extends Ship {
                     stop();
                 }
                 break;
-
             case Input.Keys.D:
             case Input.Keys.RIGHT:
                 pressedRight = false;

@@ -1,6 +1,7 @@
 package ru.gb.sprite;
 
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
 
@@ -40,4 +41,19 @@ public class Explosion extends Sprite {
         super.destroy();
         frame = 0;
     }
+
+    public void updateMSE(float delta){
+        if (!isDestroyed()){
+            update(delta);
+        }
+    }
+
+    public void drawMSE(SpriteBatch batch){
+        if (!isDestroyed()){
+            draw(batch);
+        }
+    }
+
+
+
 }
