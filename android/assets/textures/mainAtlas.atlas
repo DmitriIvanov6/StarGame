@@ -1,0 +1,82 @@
+mainAtlas.png
+size: 935, 1878
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bulletEnemy
+  rotate: false
+  xy: 11, 0
+  size: 10, 20
+  orig: 10, 20
+  offset: 0, 0
+  index: -1
+bulletMainShip
+  rotate: false
+  xy: 21, 0
+  size: 10, 20
+  orig: 10, 20
+  offset: 0, 0
+  index: -1
+button_new_game
+  rotate: false
+  xy: 235, 0
+  size: 365, 56
+  orig: 365, 56
+  offset: 0, 0
+  index: -1
+enemy0
+  rotate: false
+  xy: 101, 0
+  size: 134, 62
+  orig: 134, 62
+  offset: 0, 0
+  index: -1
+enemy1
+  rotate: false
+  xy: 493, 73
+  size: 400, 168
+  orig: 400, 168
+  offset: 0, 0
+  index: -1
+enemy2
+  rotate: false
+  xy: 387, 241
+  size: 548, 737
+  orig: 548, 737
+  offset: 0, 0
+  index: -1
+explosion
+  rotate: false
+  xy: 0, 978
+  size: 900, 900
+  orig: 900, 900
+  offset: 0, 0
+  index: -1
+main_ship
+  rotate: false
+  xy: 0, 241
+  size: 387, 202
+  orig: 387, 202
+  offset: 0, 0
+  index: -1
+medkit
+  rotate: false
+  xy: 31, 0
+  size: 70, 73
+  orig: 70, 73
+  offset: 0, 0
+  index: -1
+message_game_over
+  rotate: false
+  xy: 0, 73
+  size: 493, 68
+  orig: 493, 68
+  offset: 0, 0
+  index: -1
+star
+  rotate: false
+  xy: 0, 0
+  size: 11, 10
+  orig: 11, 10
+  offset: 0, 0
+  index: -1
